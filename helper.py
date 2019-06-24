@@ -12,7 +12,11 @@ def plot_img_array(img_array, ncol=3):
 
 from functools import reduce
 def plot_side_by_side(img_arrays):
+    # reduce(func, list):
+    #   func(...func(func(list[0], list[1]), list[2]), ..., list[n])
     flatten_list = reduce(lambda x,y: x+y, zip(*img_arrays))
+    # (1, 2) + (3, 4) = (1, 2, 3, 4)
+    # flatten_list: (img, mask, img, mask, ...)
 
     plot_img_array(np.array(flatten_list), ncol=len(img_arrays))
 
@@ -31,6 +35,7 @@ def plot_errors(results_dict, title):
     plt.show()
 
 def masks_to_colorimg(masks):
+    # pre-defined colors
     colors = np.asarray([(201, 58, 64), (242, 207, 1), (0, 152, 75), (101, 172, 228),(56, 34, 132), (160, 194, 56)])
 
     colorimg = np.ones((masks.shape[1], masks.shape[2], 3), dtype=np.float32) * 255

@@ -3,11 +3,19 @@ import random
 
 def generate_random_data(height, width, count):
     x, y = zip(*[generate_img_and_mask(height, width) for i in range(0, count)])
+    # generate_img_and_mask() -> (img, mask)
+    # a, b = zip([1, 2], [3, 4], [5, 6])
+    #   a: (1, 3, 5)
+    #   b: (2, 4, 6)
 
     X = np.asarray(x) * 255
     X = X.repeat(3, axis=1).transpose([0, 2, 3, 1]).astype(np.uint8)
     Y = np.asarray(y)
 
+    # X: collection of imgs
+    #  (count, H, W, C)
+    # Y: collection of masks
+    #  (count, obj_num, H, W)
     return X, Y
 
 def generate_img_and_mask(height, width):
