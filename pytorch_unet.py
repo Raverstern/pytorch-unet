@@ -44,7 +44,7 @@ class UNet(nn.Module):
         x = self.dconv_down4(x)
 
         x = self.upsample(x)
-        x = torch.cat([x, conv3], dim=1)
+        x = torch.cat([x, conv3], dim=1) # note: dim=1 is C (tensor is [B x C x H x W])
 
         x = self.dconv_up3(x)
         x = self.upsample(x)
