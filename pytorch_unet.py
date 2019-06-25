@@ -16,13 +16,13 @@ class UNet(nn.Module):
     def __init__(self, n_class):
         super().__init__()
 
-        self.dconv_down1 = double_conv(3, 64)
+        self.dconv_down1 = double_conv(3, 64)    # all conv are 'same'
         self.dconv_down2 = double_conv(64, 128)
         self.dconv_down3 = double_conv(128, 256)
         self.dconv_down4 = double_conv(256, 512)
 
-        self.maxpool = nn.MaxPool2d(2) # kernel_size
-        self.upsample = nn.Upsample(scale_factor=2, mode='bilinear', align_corners=True)
+        self.maxpool = nn.MaxPool2d(2) # arg: kernel_size; shrink 1/2 times
+        self.upsample = nn.Upsample(scale_factor=2, mode='bilinear', align_corners=True) # enlarge 2 times
 
         self.dconv_up3 = double_conv(256 + 512, 256)
         self.dconv_up2 = double_conv(128 + 256, 128)
